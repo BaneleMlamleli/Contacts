@@ -39,13 +39,12 @@ if(isset($_POST['submit'])){
             }
 
             foreach($outputArray as $arr){
-                echo $arr . '<br>';
                 $val = explode(",",  $arr);
                 fputcsv($contactsFileName,$val);
             }
             fclose($contactsFileName);
             echo '<script>alert("Successfully uploaded and created file!")</script>'; 
-            header('Location: index.php?uploadsucessful');                    
+            //header('Location: index.php?uploadsucessful');                    
         }else{
             echo '<script>alert("There was an error with this file. Please check it again!")</script>';
         }
@@ -53,7 +52,7 @@ if(isset($_POST['submit'])){
         echo '<script>alert("Error. Upload excel files only!")</script>';
     }
 
-} else {
-    echo '<script>alert("File not found. Please select file again!")</script>';
-}
+} //else {
+    //echo '<script>alert("File not found. Please select file again!")</script>';
+//}
 ?>

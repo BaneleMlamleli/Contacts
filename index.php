@@ -1,3 +1,8 @@
+<?php
+  if(isset($_POST['submit'])){
+    require ('uploadFile.php');
+  }
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -27,7 +32,7 @@
                 </div>
                 <div class="card-body">
                 <h5 class="card-title">Click the browse button to select the excel file that contains the contact details you want to read and save into your Google contacts</h5>
-                <form action="uploadFile.php" method="POST" enctype="multipart/form-data">
+                <form action="<?php $_PHP_SELF ?>" method="post" enctype="multipart/form-data">
                   <div class="mb-3">
                     <input type="file" name="file">
                   </div>
@@ -40,13 +45,35 @@
                   B. Mlamleli
                 </div>
             </div>
+            <div class="card text-center">
+            <!-- Table -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name(s)</th>
+                  <th scope="col">Surname</th>
+                  <th scope="col">Contact number</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php
+              if(isset($_POST['submit'])){
+                $i = 1;
+                foreach($data[1] as $key){
+                  echo "<tr><td>".$i++."</td>".
+                        "<td>".$key['A']."</td>".
+                        "<td>".$key['B']."</td>".
+                        "<td>"."0".$key['C']."</td></tr>";
+                }
+              }
+              ?>
+              </tbody>
+            </table>
+            <div>
+            <!-- end of table -->
         </div>
     </div>
-    <?php
-      $envUser = getenv('USERNAME') ?: getenv('USER');
-      $filePath = 'C:\Users\\'.$envUser.'\Downloads\\'.'contacts.csv';
-      echo '<script>alert("Successfully uploaded and created file! check here."'.$filePath.'")</script>';
-    ?>
   </body>
 </html>
 

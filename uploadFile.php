@@ -26,7 +26,7 @@ if(isset($_POST['submit'])){
             $name = '';
             $surname = '';
             $contactsFileName = fopen('C:\Users\\'.$envUser.'\Downloads\\'.'contacts.csv', 'w');
-            $outputArray = array();
+            $outputArray = array('First name,Last name,phone');
             foreach($data[1] as $key){
                 $name =  $key['A'];
                 $surname =  $key['B'];
@@ -35,7 +35,7 @@ if(isset($_POST['submit'])){
                 }else{ 
                     $phoneNum = $key['C'];
                 }                
-                array_push($outputArray, $name.','.$surname.',,,,,,,,,,,,,,,,,,,,,,,,,,,* myContacts,,,Mobile,'.$phoneNum.',,,,,,,,,,,,,,,,,,,,,');
+                array_push($outputArray, $name.','.$surname.','.$phoneNum);
             }
 
             foreach($outputArray as $arr){
@@ -43,7 +43,7 @@ if(isset($_POST['submit'])){
                 fputcsv($contactsFileName,$val);
             }
             fclose($contactsFileName);
-            echo '<script>alert("Successfully uploaded and created file!")</script>'; 
+            //echo '<script>alert("Successfully uploaded and created file!")</script>'; 
             //header('Location: index.php?uploadsucessful');                    
         }else{
             echo '<script>alert("There was an error with this file. Please check it again!")</script>';

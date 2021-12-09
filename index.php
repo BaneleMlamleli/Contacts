@@ -58,15 +58,15 @@
               </thead>
               <tbody>
               <?php
-              if(isset($_POST['submit'])){
-                $i = 1;
-                foreach($data[1] as $key){
-                  echo "<tr><td>".$i++."</td>".
-                        "<td>".$key['A']."</td>".
-                        "<td>".$key['B']."</td>".
-                        "<td>"."0".$key['C']."</td></tr>";
+                if(isset($_POST['submit'])){
+                  $i = 1;
+                  foreach($data[1] as $key){
+                    echo "<tr><td>".$i++."</td>".
+                          "<td>".$key['A']."</td>".
+                          "<td>".$key['B']."</td>".
+                          "<td>"."0".$key['C']."</td></tr>";
+                  }
                 }
-              }
               ?>
               </tbody>
             </table>

@@ -26,7 +26,7 @@ if(isset($_POST['submit'])){
             $name = '';
             $surname = '';
             $contactsFileName = fopen('C:\Users\\'.$envUser.'\Downloads\\'.'contacts.csv', 'w');
-            $outputArray = array('First name,Last name,phone');
+            $outputArray = array('Name,Given Name,Additional Name,Family Name,Yomi Name,Given Name Yomi,Additional Name Yomi,Family Name Yomi,Name Prefix,Name Suffix,Initials,Nickname,Short Name,Maiden Name,Birthday,Gender,Location,Billing Information,Directory Server,Mileage,Occupation,Hobby,Sensitivity,Priority,Subject,Notes,Language,Photo,Group Membership,Phone 1 - Type,Phone 1 - Value');
             foreach($data[1] as $key){
                 $name =  $key['A'];
                 $surname =  $key['B'];
@@ -34,8 +34,9 @@ if(isset($_POST['submit'])){
                     $phoneNum = '0'.$key['C'];
                 }else{ 
                     $phoneNum = $key['C'];
-                }                
-                array_push($outputArray, $name.','.$surname.','.$phoneNum);
+                }
+                //N.B! This format does not cater for an alternative number.
+                array_push($outputArray,$name.','.$surname.',,'.$surname.',,,,,,,,,,,,,,,,,,,,,,,,,* myContacts,Mobile,'.$phoneNum);
             }
 
             foreach($outputArray as $arr){

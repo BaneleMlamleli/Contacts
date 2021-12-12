@@ -30,7 +30,7 @@ if(isset($_POST['submit'])){
             foreach($data[1] as $key){
                 $name =  $key['A'];
                 $surname =  $key['B'];
-                if(strlen($key['C']) < 10){
+                if(strlen($key['C']) == 9){
                     $phoneNum = '0'.$key['C'];
                 }else{ 
                     $phoneNum = $key['C'];

@@ -1,7 +1,7 @@
 <?php
 require ("vendor/autoload.php");
 
-if(isset($_POST['submit'])){
+//if(isset($_POST['submit'])){
     $fileName =  $_FILES['file']['name'];    
     $fileTempName =  $_FILES['file']['tmp_name'];
     $fileSize =  $_FILES['file']['size'];
@@ -16,25 +16,24 @@ if(isset($_POST['submit'])){
         if($fileError === 0){
             $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($fileTempName);   // Loading the Excel file that contains the sheet that I will read
             $sheet = $spreadsheet->getSheetByName("Sheet1");  //getting the specific sheet I want to read
-        
+
             // Store data from the read sheet to the variable in the form of Array
             $data = array(1,$sheet->toArray(null,true,true,true));
 
-           $envUser = getenv('USERNAME') ?: getenv('USER');
+            $envUser = getenv('USERNAME') ?: getenv('USER');
 
-            $phoneNum = '';
-            $name = '';
-            $surname = '';
             $contactsFileName = fopen('C:\Users\\'.$envUser.'\Downloads\\'.'contacts.csv', 'w');
             $outputArray = array('Name,Given Name,Additional Name,Family Name,Yomi Name,Given Name Yomi,Additional Name Yomi,Family Name Yomi,Name Prefix,Name Suffix,Initials,Nickname,Short Name,Maiden Name,Birthday,Gender,Location,Billing Information,Directory Server,Mileage,Occupation,Hobby,Sensitivity,Priority,Subject,Notes,Language,Photo,Group Membership,Phone 1 - Type,Phone 1 - Value');
             foreach($data[1] as $key){
                 $sanitisedNumber = str_replace('\'','', str_replace('+', '', str_replace('.', '', str_replace(',', '', str_replace(' ', '', $key['C'])))));
                 $name =  $key['A'];
                 $surname =  $key['B'];
-                if(strlen($sanitisedNumber) == 11){
+                if(strlen($sanitisedNumber) == 11){ //if the number is like this 27123456789
                     $phoneNum = '0'.substr($sanitisedNumber, 2);
-                }else if(strlen($sanitisedNumber) == 9){ 
+                }else if(strlen($sanitisedNumber) == 9){ //if the number is like this 123456789
                     $phoneNum = '0'.$sanitisedNumber;
+                }else if(strlen($sanitisedNumber) == 12){ //if the number is like this 270123456789
+                    $phoneNum = '0'.substr($sanitisedNumber, 3);
                 }
                 //N.B! This format does not cater for an alternative number.
                 array_push($outputArray,$name.','.$surname.',,'.$surname.',,,,,,,,,,,,,,,,,,,,,,,,,* myContacts,Mobile,'.$phoneNum);
@@ -54,7 +53,7 @@ if(isset($_POST['submit'])){
         echo '<script>alert("Error. Upload excel files only!")</script>';
     }
 
-} //else {
+//} //else {
     //echo '<script>alert("File not found. Please select file again!")</script>';
 //}
 ?>

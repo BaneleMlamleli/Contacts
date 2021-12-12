@@ -1,7 +1,5 @@
 <?php
-require ("vendor/autoload.php");
-
-//if(isset($_POST['submit'])){
+    require ("vendor/autoload.php");
     $fileName =  $_FILES['file']['name'];    
     $fileTempName =  $_FILES['file']['tmp_name'];
     $fileSize =  $_FILES['file']['size'];
@@ -52,8 +50,4 @@ require ("vendor/autoload.php");
     }else{
         echo '<script>alert("Error. Upload excel files only!")</script>';
     }
-
-//} //else {
-    //echo '<script>alert("File not found. Please select file again!")</script>';
-//}
 ?>

@@ -61,10 +61,20 @@
                 if(isset($_POST['submit'])){
                   $i = 1;
                   foreach($data[1] as $key){
+                    $sanitisedNumber = str_replace('\'','', str_replace('+', '', str_replace('.', '', str_replace(',', '', str_replace(' ', '', $key['C'])))));
+                    $name =  $key['A'];
+                    $surname =  $key['B'];
+                    if(strlen($sanitisedNumber) == 11){ //if the number is like this 27123456789
+                        $phoneNum = '0'.substr($sanitisedNumber, 2);
+                    }else if(strlen($sanitisedNumber) == 9){ //if the number is like this 123456789
+                        $phoneNum = '0'.$sanitisedNumber;
+                    }else if(strlen($sanitisedNumber) == 12){ //if the number is like this 270123456789
+                        $phoneNum = '0'.substr($sanitisedNumber, 3);
+                    }
                     echo "<tr><td>".$i++."</td>".
-                          "<td>".$key['A']."</td>".
-                          "<td>".$key['B']."</td>".
-                          "<td>"."0".$key['C']."</td></tr>";
+                          "<td>".$name."</td>".
+                          "<td>".$surname."</td>".
+                          "<td>".$phoneNum."</td></tr>";
                   }
                 }
               ?>
